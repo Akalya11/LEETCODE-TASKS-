@@ -1,0 +1,32 @@
+class Solution {
+    public int minimumSum(int[] nums) {
+        int n = nums.length;
+        int res = Integer.MAX_VALUE;
+        int[] left = new int[n];
+        int[] right = new int[n];
+        boolean found = false;
+        Arrays.fill(left, Integer.MAX_VALUE);
+        Arrays.fill(right, Integer.MAX_VALUE);
+        for (int i = 1; i < n; i++) {
+            left[i] = Math.min(left[i - 1], nums[i - 1]);
+        }
+
+        for (int i = n - 2; i >= 0; i--) {
+            right[i] = Math.min(right[i + 1], nums[i + 1]);
+        }
+
+        for (int i = 1; i < n - 1; i++) {
+            if (nums[i] > left[i] && nums[i] > right[i]) {
+                res = Math.min(res, nums[i] + left[i] + right[i]);
+                found = true;
+            }
+        }
+        if (found) {
+            return res;
+        }
+        else {
+            System.out.println("-1");
+            return -1; 
+        }
+    }
+}
